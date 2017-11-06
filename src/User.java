@@ -21,18 +21,27 @@ public class User
     {
         return Email;
     }
+
+    public String getPassword()
+    {
+        return Password;
+    }
+
     public String getUsername()
     {
         return Username;
     }
+
     public ArrayList<String> getFavoriteGenre()
     {
         return favoriteGenre;
     }
-    public void addFavoriteGenre(String genre)
+
+    public boolean addFavoriteGenre(String genre)
     {
-        favoriteGenre.add(genre);
+        return favoriteGenre.add(genre);
     }
+
     public boolean removeFavoriteGenre(String genre)
     {
         return favoriteGenre.remove(genre);
