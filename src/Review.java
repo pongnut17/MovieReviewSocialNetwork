@@ -9,9 +9,9 @@ public class Review
     private UserCollection liker;
     private float rating;
     private Movie reviewedMovie;
-    private Date submitedDate;
+    private String submitedDate;
 
-    public Review(Movie movie, User writer, String title, ArrayList<String> text, float score, Date time)
+    public Review(Movie movie, User writer, String title, ArrayList<String> text, float score, String time)
     {
         this.reviewedMovie = movie;
         this.owner = writer;
@@ -35,23 +35,48 @@ public class Review
         return true;
     }
 
-    public void setTitleReview(String titleReview) {
+    public void printReviewDetail()
+    {
+        System.out.println("\nReview Title : " + titleReview);
+        System.out.println("Movie : " + reviewedMovie.getTitle());
+        System.out.println("Written by: " + owner.getUsername());
+        System.out.println(submitedDate);
+
+        System.out.println("-  -  -  -  -  -  -  -  -  -  -  -  -  -  -");
+        /* loop for print all lines of detail */
+        for (String body : detail)
+        {
+            System.out.println(body);
+        }
+        System.out.println("-  -  -  -  -  -  -  -  -  -  -  -  -  -  -");
+
+        System.out.println("Rating: " + rating);
+
+
+    }
+
+    public void setTitleReview(String titleReview)
+    {
         this.titleReview = titleReview;
     }
 
-    public void setDetail(ArrayList<String> detail) {
+    public void setDetail(ArrayList<String> detail)
+    {
         this.detail = detail;
     }
 
-    public void setRating(float rating) {
+    public void setRating(float rating)
+    {
         this.rating = rating;
     }
 
-    public User getOwner() {
+    public User getOwner()
+    {
         return owner;
     }
 
-    public String getTitleReview() {
+    public String getTitleReview()
+    {
         return titleReview;
     }
 }

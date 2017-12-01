@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class User
 {
     private String Email;
     private String Password;
     private String Username;
-    private ArrayList<String> favoriteGenre;
+    private TreeSet<String> favoriteGenre = new TreeSet<String>();
     private UserCollection follower;
     private UserCollection following;
     private ReviewCollection ownReview;
@@ -32,7 +33,7 @@ public class User
         return Username;
     }
 
-    public ArrayList<String> getFavoriteGenre()
+    public TreeSet<String> getFavoriteGenre()
     {
         return favoriteGenre;
     }

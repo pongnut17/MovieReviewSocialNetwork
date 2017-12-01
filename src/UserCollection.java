@@ -2,12 +2,8 @@ import java.util.ArrayList;
 
 public class UserCollection
 {
-    private ArrayList<User> users;
+    private ArrayList<User> users = new ArrayList<User>();
 
-    public UserCollection()
-    {
-
-    }
 
     public void printUser()
     {

@@ -1,2 +1,3 @@
-public class ReviewManager {
+public class ReviewManager
+{
 }

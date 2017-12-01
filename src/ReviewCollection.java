@@ -27,7 +27,7 @@ public class ReviewCollection
     {
         boolean ok = true;
 
-        ok =  reviews.remove(review);
+        ok = reviews.remove(review);
 
         return ok;
     }
@@ -41,8 +41,9 @@ public class ReviewCollection
 
     public boolean addLike(User user, Review review)
     {
-        for (:) {
+        boolean ok = true;
 
+        return ok;
     }
-    }
+
 }
