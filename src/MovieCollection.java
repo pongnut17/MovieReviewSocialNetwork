@@ -1,3 +1,4 @@
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.ArrayList;
 
 public class MovieCollection
@@ -6,22 +7,23 @@ public class MovieCollection
 
     public void initialize()
     {
+
         ArrayList<String> genreMovieA = new ArrayList<String>();
         genreMovieA.add("Comedy");
-        Movie A = new Movie("Titanic", 1997, genreMovieA);
+        Movie A = new Movie("Titanic",1997,genreMovieA);
 
         ArrayList<String> genreMovieB = new ArrayList<String>();
         genreMovieB.add("Comedy");
         genreMovieB.add("Action");
         genreMovieB.add("Adventure");
         genreMovieB.add("Animation");
-        Movie B = new Movie("Avatar", 2009, genreMovieB);
+        Movie B = new Movie("Avatar",2009,genreMovieB);
 
         ArrayList<String> genreMovieC = new ArrayList<String>();
         genreMovieC.add("Action");
         genreMovieC.add("Crime");
         genreMovieC.add("Animation");
-        Movie C = new Movie("Conan The Movie: Who is Ironman", 2008, genreMovieC);
+        Movie C = new Movie("Conan The Movie: Who is Ironman",2008,genreMovieC);
 
 
         movies.add(A);
@@ -39,7 +41,7 @@ public class MovieCollection
 
     public Movie getMovies(String title, int year)
     {
-        Movie targetMovie = new Movie(null, 0, null);
+        Movie targetMovie = new Movie(null,0,null);
 
         for (Movie currentMovie : movies)
         {
@@ -49,6 +51,20 @@ public class MovieCollection
             }
         }
 
+        return targetMovie;
+    }
+
+    public Movie getMovies(Movie OKmovie)
+    {
+        Movie targetMovie = new Movie(null,0,null);
+
+        for (Movie currentMovie : movies)
+        {
+            if (currentMovie.getTitle().equalsIgnoreCase(OKmovie.getTitle()) && currentMovie.getYear() == OKmovie.getYear())
+            {
+                targetMovie = currentMovie;
+            }
+        }
 
         return targetMovie;
     }

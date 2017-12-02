@@ -7,9 +7,7 @@ public class User
     private String Password;
     private String Username;
     private TreeSet<String> favoriteGenre = new TreeSet<String>();
-    private UserCollection follower;
-    private UserCollection following;
-    private ReviewCollection ownReview;
+    private ArrayList<String> following = new ArrayList<>();
 
     public User(String Email, String Password, String Username)
     {
@@ -22,6 +20,21 @@ public class User
     {
         return Email;
     }
+
+    public ArrayList<String> getFollowing() {
+        return following;
+    }
+
+    public void addFollowing(String targetUsername)
+    {
+        following.add(targetUsername);
+    }
+
+    public void removeFollowing(String targetUsername)
+    {
+        following.remove(targetUsername);
+    }
+
 
     public String getPassword()
     {
@@ -40,7 +53,7 @@ public class User
 
     public boolean addFavoriteGenre(String genre)
     {
-        return favoriteGenre.add(genre);
+         return favoriteGenre.add(genre);
     }
 
     public boolean removeFavoriteGenre(String genre)
