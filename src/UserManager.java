@@ -14,14 +14,21 @@ public class UserManager {
         return allUsers.getUserbyEmail(email);
     }
 
+    public  UserCollection getAllUsers() {
+        return allUsers;
+    }
 
     public static void initialize()
     {
 
-        User A = new User("boss32734@hotmail.com","12345678","Lastnight");
+        User A = new User("boss32734@hotmail.com","12345678","boss32734");
+        A.addFollowing("Mingd");
+        A.addFollowing("Lolipop");
         User B = new User("Manger@hotmail.com","zeasda8","Mingd");
         User C = new User("Aobey@hotmail.com","1asdr1","Lolipop");
         User D = new User("Auzy@gmail.com","16878678","pongnut18");
+        D.addFollowing("Lolipop");
+        D.addFollowing("lnwmak555");
         User E = new User("manilamanual@hotmail.com","0849211234","Ominidas");
         User F = new User("pigletMetpig@hotmail.com","12126547","lnwmak555");
         User G = new User("whyme555@gmail.com","AAA234","bozo007");

@@ -1,13 +1,19 @@
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class UserCollection
 {
-    private ArrayList<User> users = new ArrayList<User>();
+    private TreeSet<User> users = new TreeSet<User>();
 
 
     public void printUser()
     {
 
+    }
+
+    public TreeSet<User> getUserslist() {
+
+        return users;
     }
 
     public boolean addUser(User user)
