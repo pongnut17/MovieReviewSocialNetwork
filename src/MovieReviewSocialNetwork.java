@@ -1,5 +1,6 @@
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class MovieReviewSocialNetwork
 {
@@ -35,7 +36,7 @@ public class MovieReviewSocialNetwork
         System.out.println("3. Edit or delete your review ");
         System.out.println("4. Manage Follow list");
         System.out.println("5. See timeline");
-        System.out.println("6. ...........");
+        System.out.println("6. Recommend");
         System.out.println("7. ...........");
         System.out.println("8. Exit..");
 
@@ -293,6 +294,55 @@ public class MovieReviewSocialNetwork
         System.out.println(" ----- ----- -----  -----       -----  --------------  -----        --------");
     }
 
+    public void recommend(User user)
+    {
+
+        TreeSet<User> newTreeSet = new TreeSet<User>();
+
+
+        newTreeSet = allusers.getAllUsers().getUserslist();
+
+        System.out.println(user.getFollowing());
+
+        for (User currentUser: newTreeSet)
+        {
+            System.out.println("User :"+ currentUser.getUsername());
+            System.out.println(currentUser.getFollowing());
+
+                if(user.getFollowing().contains(currentUser.getUsername()))
+                {
+                    System.out.println("b");
+                    for(String userFollowing : currentUser.getFollowing())
+                    {
+                        for (User theUser: newTreeSet)
+                        {
+                            if(theUser.getUsername().equals(userFollowing))
+                            {
+                                theUser.addSimilar();
+                                System.out.println("c");
+                            }
+                        }
+
+
+                    }
+                }
+        }
+
+
+
+
+        for (User currentUser: newTreeSet)
+        {
+            System.out.println("Score :" + currentUser.getSimilar() + " User: " + currentUser.getUsername());
+            currentUser.resetSimilar();
+        }
+
+
+
+    }
+
+
+
     public static void main(String args[])
     {
         welcome();
@@ -357,6 +407,7 @@ public class MovieReviewSocialNetwork
                     socialSystem.seeTimeline(currentUser);
                     break;
                 case 6:
+                    socialSystem.recommend(currentUser);
                     break;
                 case 7:
                     break;

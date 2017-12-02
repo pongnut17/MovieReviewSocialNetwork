@@ -18,29 +18,29 @@ public class ReviewCollection
         Review A = new Review("Titanic","pongnut18","Good Ship",textA,2.05,"2017-12-01 23:51:01");
 
         ArrayList<String> textB = new ArrayList<String>();
-        textA.add("I love this ");
-        textA.add("repeat and repeat");
-        textA.add("GG WP");
+        textB.add("I love this ");
+        textB.add("repeat and repeat");
+        textB.add("GG WP");
 
         Review B = new Review("Avatar","boss32734","Why actor so tall",textB,5.00,"2017-10-07 20:51:01");
 
         ArrayList<String> textC = new ArrayList<String>();
-        textA.add("just test ei ei ");
+        textC.add("just test ei ei ");
 
         Review C = new Review("Titanic","testUser","OMG WTF",textC,1.80,"2015-09-02 08:18:08");
 
 
         ArrayList<String> textD = new ArrayList<String>();
-        textA.add("No thing");
-        textA.add("Ok bye");
+        textD.add("No thing");
+        textD.add("Ok bye");
 
         Review D = new Review("Avatar","boss32734","HAHAHAHA HAHAHAH WTF",textD,4.24,"2017-10-07 22:54:42");
 
         ArrayList<String> textE = new ArrayList<String>();
-        textA.add("just test ei ei ");
-        textA.add("ei ei ");
-        textA.add("ei ei ");
-        textA.add("ei ei ");
+        textE.add("just test ei ei ");
+        textE.add("ei ei ");
+        textE.add("ei ei ");
+        textE.add("ei ei ");
 
         Review E = new Review("Conan The Movie: Who is Ironman","boss32734","IDK who is Ironman",textE,2.22,"2015-09-02 08:18:08");
 
