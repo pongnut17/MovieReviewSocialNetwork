@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.util.ArrayList;
 
 public class MovieReviewSocialNetwork
@@ -29,7 +30,6 @@ public class MovieReviewSocialNetwork
 
     public int menu()
     {
-
         System.out.println("1. Add your favorite genre (recommended for new member)");
         System.out.println("2. Write some review ");
         System.out.println("3. Edit or delete your review ");
@@ -277,18 +277,20 @@ public class MovieReviewSocialNetwork
 
     private static void welcome()
     {
-        System.out.println(" -----------------  --------------  --------------  -----");
-        System.out.println(" |               |  |            |  |            |  |      ---------------------------------");
-        System.out.println(" |   ---   ---   |  |   ------   |  |   ----------  |------------------------------");
-        System.out.println(" |   | |   | |   |  |   |    |   |  |   |           |-----------------------------------------");
-        System.out.println(" |   | |   | |   |  |   ------   |  |   ----------  ------------------------------");
-        System.out.println(" |   | |   | |   |  |            |  |            |  ----------------------------------------");
-        System.out.println(" |   | |   | |   |  |   |\\   \\----  |-------------   |-----------------------------");
-        System.out.println(" |   | |   | |   |  |   | \\   \\     |----------------------------------------------");
-        System.out.println(" |   | |   | |   |  |   |  \\   \\    |----------------------------------------------");
-        System.out.println(" |   | |   | |   |  |   |   \\   \\   |----------------------------------------------");
-        System.out.println(" |   | |   | |   |  |   |    \\   \\  |----------------------------------------------");
-        System.out.println(" ----- ----- -----  -----     ----- |  |   |    \\   \\  |----------------------------------------------");
+        System.out.println(" -----------------  -----------------  -----------------  ---------       -----");
+        System.out.println(" |               |  |               |  |            |  |       \\       |   |");
+        System.out.println(" |   ---   ---   |  |   ---------   |  |   ----------  |   |\\   \\      |   |");
+        System.out.println(" |   | |   | |   |  |   |       |   |  |   |           |   | \\   \\     |   |");
+        System.out.println(" |   | |   | |   |  |   ---------   |  |   ----------  |   |  \\   \\    |   |");
+        System.out.println(" |   | |   | |   |  |               |  |            |  |   |   \\   \\   |   |");
+        System.out.println(" |   | |   | |   |  |   |\\   \\-------  |---------   |  |   |    \\   \\  |   |");
+        System.out.println(" |   | |   | |   |  |   | \\   \\              |   |  |   |     \\   \\ |   |");
+        System.out.println(" |   | |   | |   |  |   |  \\   \\                |   |  |   |      \\   \\|   |");
+        System.out.println(" |   | |   | |   |  |   |   \\   \\               |   |  |   |       \\       |");
+        System.out.println(" |   | |   | |   |  |   |    \\   \\     ----------   |  |   |       \\       |");
+        System.out.println(" |   | |   | |   |  |   |     \\   \\    |            |  |   |       \\       |");
+        System.out.println(" |   | |   | |   |  |   |      \\   \\   |            |  |   |       \\       |");
+        System.out.println(" ----- ----- -----  -----       -----  --------------  -----        --------");
     }
 
     public static void main(String args[])
@@ -302,8 +304,22 @@ public class MovieReviewSocialNetwork
         allmovies.initialize();
         allreviews.initialize();
 
+        System.out.println("---------------");
+        System.out.println("- LOGIN       -");
+        System.out.println("---------------");
         String inputEmail = IOUtils.getString("Enter your email: ");
-        String inputPassword = IOUtils.getString("Enter your password: ");
+        String inputPassword = null;
+        Console console = System.console();
+        if (console != null)
+        {
+            char readPassword[] = console.readPassword("Enter your password: ");
+            inputPassword = new String(readPassword);
+        }
+        else
+        {
+            inputPassword = IOUtils.getString("Enter your password: ");
+        }
+        System.out.println("\"" + inputPassword + "\"");
 
         try
         {
