@@ -50,6 +50,20 @@ public class MovieCollection
         return targetMovie;
     }
 
+    public Movie getMovies(String title)
+    {
+        Movie targetMovie = new Movie(null, 0, null);
+
+        for (Movie currentMovie : movies)
+        {
+            if (currentMovie.getTitle().equalsIgnoreCase(title))
+            {
+                targetMovie = currentMovie;
+            }
+        }
+        return targetMovie;
+    }
+
     public Movie getMovies(Movie OKmovie)
     {
         Movie targetMovie = new Movie(null, 0, null);

@@ -1,4 +1,3 @@
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -275,7 +274,7 @@ public class MovieReviewSocialNetwork
             }
         }
     }
-
+    
     private static void welcome()
     {
         System.out.println(" -----------------  -----------------  -----------------  ---------       -----");
@@ -320,24 +319,40 @@ public class MovieReviewSocialNetwork
                     }
                 }
             }
+
+            ArrayList<Review> Y = allreviews.getAllReviewsByUser(currentUser.getUsername());
+
+            for (Review currentR : Y)
+            {
+                for (String theGenre : allmovies.getMovies(currentR.getReviewedMovie()).getGenre())
+                {
+                    if (user.getFavoriteGenre().contains(theGenre))
+                    {
+                        currentUser.addSimilar();
+                        break;
+                    }
+                }
+            }
         }
 
         TreeSet<User> newTreeSet = new TreeSet<>();
 
-        for(User currentUser : allRecommend)
+        for (User currentUser : allRecommend)
         {
             newTreeSet.add(currentUser);
         }
 
         for (User currentUser : newTreeSet)
         {
-            System.out.println("Score :" + currentUser.getSimilar() + " User: " + currentUser.getUsername());
-            currentUser.resetSimilar();
+            if (!user.getFollowing().contains(currentUser.getUsername()))
+            {
+                System.out.println("Score :" + currentUser.getSimilar() + " User: " + currentUser.getUsername());
+                currentUser.resetSimilar();
+            }
         }
     }
 
-
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         welcome();
         MovieReviewSocialNetwork socialSystem = new MovieReviewSocialNetwork();
