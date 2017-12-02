@@ -274,7 +274,7 @@ public class MovieReviewSocialNetwork
             }
         }
     }
-    
+
     private static void welcome()
     {
         System.out.println(" -----------------  -----------------  -----------------  ---------       -----");
