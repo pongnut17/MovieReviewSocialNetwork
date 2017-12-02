@@ -296,51 +296,45 @@ public class MovieReviewSocialNetwork
 
     public void recommend(User user)
     {
-
-        TreeSet<User> newTreeSet = new TreeSet<User>();
-
-
-        newTreeSet = allusers.getAllUsers().getUserslist();
+        TreeSet<User> allRecommend = allusers.getAllUsers().getUserslist();
 
         System.out.println(user.getFollowing());
 
-        for (User currentUser: newTreeSet)
+        for (User currentUser : allRecommend)
         {
-            System.out.println("User :"+ currentUser.getUsername());
+            System.out.println("User :" + currentUser.getUsername());
             System.out.println(currentUser.getFollowing());
 
-                if(user.getFollowing().contains(currentUser.getUsername()))
+            if (user.getFollowing().contains(currentUser.getUsername()))
+            {
+                System.out.println("b");
+                for (String userFollowing : currentUser.getFollowing())
                 {
-                    System.out.println("b");
-                    for(String userFollowing : currentUser.getFollowing())
+                    for (User theUser : allRecommend)
                     {
-                        for (User theUser: newTreeSet)
+                        if (theUser.getUsername().equals(userFollowing))
                         {
-                            if(theUser.getUsername().equals(userFollowing))
-                            {
-                                theUser.addSimilar();
-                                System.out.println("c");
-                            }
+                            theUser.addSimilar();
+                            System.out.println("c");
                         }
-
-
                     }
                 }
+            }
         }
 
+        TreeSet<User> newTreeSet = new TreeSet<>();
 
+        for(User currentUser : allRecommend)
+        {
+            newTreeSet.add(currentUser);
+        }
 
-
-        for (User currentUser: newTreeSet)
+        for (User currentUser : newTreeSet)
         {
             System.out.println("Score :" + currentUser.getSimilar() + " User: " + currentUser.getUsername());
             currentUser.resetSimilar();
         }
-
-
-
     }
-
 
 
     public static void main(String args[])
@@ -358,18 +352,7 @@ public class MovieReviewSocialNetwork
         System.out.println("- LOGIN       -");
         System.out.println("---------------");
         String inputEmail = IOUtils.getString("Enter your email: ");
-        String inputPassword = null;
-        Console console = System.console();
-        if (console != null)
-        {
-            char readPassword[] = console.readPassword("Enter your password: ");
-            inputPassword = new String(readPassword);
-        }
-        else
-        {
-            inputPassword = IOUtils.getString("Enter your password: ");
-        }
-        System.out.println("\"" + inputPassword + "\"");
+        String inputPassword = IOUtils.getString("Enter your password: ");
 
         try
         {

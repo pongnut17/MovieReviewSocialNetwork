@@ -22,7 +22,8 @@ public class User implements Comparable<User>
         return Email;
     }
 
-    public ArrayList<String> getFollowing() {
+    public ArrayList<String> getFollowing()
+    {
         return following;
     }
 
@@ -54,9 +55,8 @@ public class User implements Comparable<User>
 
     public boolean addFavoriteGenre(String genre)
     {
-         return favoriteGenre.add(genre);
+        return favoriteGenre.add(genre);
     }
-
 
 
     public void addSimilar()
@@ -76,15 +76,15 @@ public class User implements Comparable<User>
     @Override
     public int compareTo(User o)
     {
-        if(this.getSimilar() == o.getSimilar()) {
+        if (this.getSimilar() == o.getSimilar())
+        {
             return this.getUsername().compareTo(o.getUsername());
         }
-        else {
-            return Integer.compare(this.getSimilar(),o.getSimilar());
+        else
+        {
+            return Integer.compare(o.getSimilar(), this.getSimilar());
         }
     }
-
-
 
     public boolean removeFavoriteGenre(String genre)
     {
