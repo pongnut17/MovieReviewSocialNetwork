@@ -22,7 +22,7 @@ public class IOUtils
         String inputString;
         int readBytes = 0;
         byte buffer[] = new byte[200];
-        System.out.println(prompt);
+        System.out.print(prompt);
         try
         {
             readBytes = System.in.read(buffer, 0, 200);
@@ -54,7 +54,7 @@ public class IOUtils
         String inputString;
         int readBytes = 0;
         byte buffer[] = new byte[200];
-        System.out.println(prompt);
+        System.out.print(prompt);
         try
         {
             readBytes = System.in.read(buffer, 0, 200);
@@ -94,7 +94,7 @@ public class IOUtils
         String inputString;
         int readBytes = 0;
         byte buffer[] = new byte[200];
-        System.out.println(prompt);
+        System.out.print(prompt);
         try
         {
             readBytes = System.in.read(buffer, 0, 200);
