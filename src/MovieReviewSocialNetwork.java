@@ -1,8 +1,9 @@
+import com.sun.org.apache.regexp.internal.RE;
+
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-public class MovieReviewSocialNetwork
-{
+public class MovieReviewSocialNetwork {
 
 
     private static UserManager allusers = new UserManager();
@@ -10,26 +11,21 @@ public class MovieReviewSocialNetwork
     private static ReviewCollection allreviews = new ReviewCollection();
 
 
-    public User logIn(String Email, String Pass)
-    {
+    public User logIn(String Email, String Pass) {
         User login = new User(null, null, null);
 
         User suspect = allusers.getUserbyEmail(Email);
 
-        if (Pass.equals(suspect.getPassword()))
-        {
+        if (Pass.equals(suspect.getPassword())) {
             login = suspect;
-        }
-        else
-        {
+        } else {
             login = null;
         }
         return login;
     }
 
 
-    public int menu()
-    {
+    public int menu() {
 
         System.out.println("1. Add your favorite genre (recommended for new member)");
         System.out.println("2. Write some review ");
@@ -46,8 +42,7 @@ public class MovieReviewSocialNetwork
         return menu;
     }
 
-    public void selectFavorite(User selector)
-    {
+    public void selectFavorite(User selector) {
 
         String YesNo = new String();
 
@@ -60,12 +55,10 @@ public class MovieReviewSocialNetwork
         System.out.println("6.Crime");
 
 
-        do
-        {
+        do {
             int select = IOUtils.getInteger("\nEnter number of genre that you like?: ");
 
-            switch (select)
-            {
+            switch (select) {
                 case 1:
                     selector.addFavoriteGenre("Action");
                     break;
@@ -97,8 +90,7 @@ public class MovieReviewSocialNetwork
 
     }
 
-    public void writeSomeReview(User writer)
-    {
+    public void writeSomeReview(User writer) {
         Movie writtenMovie = new Movie(null, 0, null);
         ArrayList<String> bodies = new ArrayList<String>();
 
@@ -112,11 +104,9 @@ public class MovieReviewSocialNetwork
 
         String nameReview = IOUtils.getString("Title of Review :");
         System.out.println("==> Enter review detail below. Type END to  finish.");
-        while (true)
-        {
+        while (true) {
             String line = IOUtils.getBareString();
-            if (line.compareTo("END") == 0)
-            {
+            if (line.compareTo("END") == 0) {
                 break;
             }
             bodies.add(line);
@@ -132,12 +122,10 @@ public class MovieReviewSocialNetwork
         allreviews.addReview(writtenReview);
     }
 
-    public void editOrDelete(User owner)
-    {
+    public void editOrDelete(User owner) {
         int select = IOUtils.getInteger("What do you want to do?\n 1. Edit \n 2. Delete");
 
-        switch (select)
-        {
+        switch (select) {
             case 1:
                 Edit(owner);
                 break;
@@ -148,15 +136,13 @@ public class MovieReviewSocialNetwork
         }
     }
 
-    public void Delete(User owner)
-    {
+    public void Delete(User owner) {
         ArrayList<Review> reviews = new ArrayList<Review>();
         reviews = allreviews.getAllReviewsByUser(owner.getUsername());
         int i = 1;
 
         System.out.println("------- This is list of your reviews -------");
-        for (Review currentReview : reviews)
-        {
+        for (Review currentReview : reviews) {
             System.out.println(i + ". " + currentReview.getTitleReview() + "( " + currentReview.getReviewedMovie() + " )");
             i++;
         }
@@ -166,15 +152,13 @@ public class MovieReviewSocialNetwork
         allreviews.removeReview(reviews.get(select - 1));
     }
 
-    public void Edit(User owner)
-    {
+    public void Edit(User owner) {
         ArrayList<Review> reviews = new ArrayList<Review>();
         reviews = allreviews.getAllReviewsByUser(owner.getUsername());
         int i = 1;
 
         System.out.println("------- This is list of your reviews -------");
-        for (Review currentReview : reviews)
-        {
+        for (Review currentReview : reviews) {
             System.out.println(i + ". " + currentReview.getTitleReview() + "( " + currentReview.getReviewedMovie() + " )");
             i++;
         }
@@ -186,8 +170,7 @@ public class MovieReviewSocialNetwork
         System.out.println("\n------- Edit  -------");
         int Eselect = IOUtils.getInteger("Which part do you want to Edit \n 1. Title\n 2. Details\n 3. Rating");
 
-        switch (Eselect)
-        {
+        switch (Eselect) {
             case 1:
                 String nameReview = IOUtils.getString("New title of Review :");
                 allreviews.getReviews(reviews.get(select - 1)).setTitleReview(nameReview);
@@ -195,11 +178,9 @@ public class MovieReviewSocialNetwork
             case 2:
                 ArrayList<String> bodies = new ArrayList<String>();
                 System.out.println("==> Enter new review detail below. Type END to  finish.");
-                while (true)
-                {
+                while (true) {
                     String line = IOUtils.getBareString();
-                    if (line.compareTo("END") == 0)
-                    {
+                    if (line.compareTo("END") == 0) {
                         break;
                     }
                     bodies.add(line);
@@ -213,24 +194,20 @@ public class MovieReviewSocialNetwork
         }
     }
 
-    public void manageFollowList(User user)
-    {
+    public void manageFollowList(User user) {
         int select = IOUtils.getInteger("What do you want to do?\n 1. See your following list \n 2. Follow some user \n 3. Delete someone in your following list");
 
-        switch (select)
-        {
+        switch (select) {
             case 1:
                 int i = 1;
                 System.out.println("------- This is list of your following -------");
-                for (String curFollowing : user.getFollowing())
-                {
+                for (String curFollowing : user.getFollowing()) {
                     System.out.println(i + ". " + curFollowing);
                     i++;
                 }
 
                 String YesNo = IOUtils.getString("Do you want to do something with this?(Y/N) :");
-                if (YesNo.equalsIgnoreCase("Y"))
-                {
+                if (YesNo.equalsIgnoreCase("Y")) {
                     manageFollowList(user);
                 }
                 break;
@@ -243,41 +220,34 @@ public class MovieReviewSocialNetwork
         }
     }
 
-    public void Follow(User user)
-    {
+    public void Follow(User user) {
         String targetUser = IOUtils.getString("Username of user who you want to follow :");
         user.addFollowing(targetUser);
     }
 
-    public void deleteFollow(User user)
-    {
+    public void deleteFollow(User user) {
         String targetUser = IOUtils.getString("Username of user who you want to delete :");
         user.removeFollowing(targetUser);
     }
 
-    public void seeTimeline(User user)
-    {
+    public void seeTimeline(User user) {
         System.out.println("--------------------------------------");
         System.out.println("-------- ♥ This is timeline ♥ --------");
         System.out.println("--------------------------------------");
-        for (Review currentReview : allreviews.getAllReviews())
-        {
-            if (user.getFollowing().contains(currentReview.getOwner()))
-            {
+        for (Review currentReview : allreviews.getAllReviews()) {
+            if (user.getFollowing().contains(currentReview.getOwner())) {
                 currentReview.printReviewDetail();
 
                 System.out.println("--------------------------------------");
                 String YesNo = IOUtils.getString("Like?(Y/N) :");
-                if (YesNo.equalsIgnoreCase("Y"))
-                {
+                if (YesNo.equalsIgnoreCase("Y")) {
                     allreviews.likeReview(user.getUsername(), currentReview);
                 }
             }
         }
     }
 
-    private static void welcome()
-    {
+    private static void welcome() {
         System.out.println(" -----------------  --------------  --------------  -----");
         System.out.println(" |               |  |            |  |            |  |      ---------------------------------");
         System.out.println(" |   ---   ---   |  |   ------   |  |   ----------  |------------------------------");
@@ -292,6 +262,7 @@ public class MovieReviewSocialNetwork
         System.out.println(" ----- ----- -----  -----     ----- |  |   |    \\   \\  |----------------------------------------------");
     }
 
+
     public void recommend(User user)
     {
 
@@ -302,42 +273,53 @@ public class MovieReviewSocialNetwork
 
         System.out.println(user.getFollowing());
 
-        for (User currentUser: newTreeSet)
-        {
-            System.out.println("User :"+ currentUser.getUsername());
+        for (User currentUser : newTreeSet) {
+            System.out.println("User :" + currentUser.getUsername());
             System.out.println(currentUser.getFollowing());
 
-                if(user.getFollowing().contains(currentUser.getUsername()))
-                {
-                    System.out.println("b");
-                    for(String userFollowing : currentUser.getFollowing())
-                    {
-                        for (User theUser: newTreeSet)
-                        {
-                            if(theUser.getUsername().equals(userFollowing))
-                            {
-                                theUser.addSimilar();
-                                System.out.println("c");
-                            }
+            if (user.getFollowing().contains(currentUser.getUsername())) {
+                System.out.println("b");
+                for (String userFollowing : currentUser.getFollowing()) {
+                    for (User theUser : newTreeSet) {
+                        if (theUser.getUsername().equals(userFollowing)) {
+                            theUser.addSimilar();
+                            System.out.println("c");
                         }
+                    }
 
 
+                }
+            }
+
+
+            ArrayList<Review> Y = allreviews.getAllReviewsByUser(currentUser.getUsername());
+
+            for (Review currentR : Y)
+            {
+                for (String theGenre : allmovies.getMovies(currentR.getReviewedMovie()).getGenre())
+                {
+                    if(user.getFavoriteGenre().contains(theGenre))
+                    {
+                        currentUser.addSimilar();
+                        break;
                     }
                 }
+            }
         }
 
 
 
-
-        for (User currentUser: newTreeSet)
+        for (User currentUser : newTreeSet)
         {
-            System.out.println("Score :" + currentUser.getSimilar() + " User: " + currentUser.getUsername());
-            currentUser.resetSimilar();
+            if(!user.getFollowing().contains(currentUser.getUsername()))
+            {
+                System.out.println("Score :" + currentUser.getSimilar() + " User: " + currentUser.getUsername());
+                currentUser.resetSimilar();
+            }
         }
-
-
-
     }
+
+
 
 
 
