@@ -1,99 +1,196 @@
-import com.sun.org.apache.regexp.internal.RE;
+/**
+ * Review.java
+ *
+ * Simple class representing a review object.
+ *
+ * Created by Like a Boss, 6 December 2017
+ */
 
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.Date;
 
 public class Review implements Comparable<Review>
 {
+    private ArrayList<String> body;
+    private Date date;
+    private ArrayList<String> likes;
+    private String movieTitle;
+    private int movieYear;
     private String owner;
-    private String titleReview;
-    private ArrayList<String> detail = new ArrayList<String>();
-    private TreeSet<String> like = new TreeSet<String>() ;
     private double rating;
-    private String reviewedMovie;
-    private String submittedDate;
+    private String titleReview;
 
-    public Review(String movie, String writer, String title, ArrayList<String> text, double score, String time)
+    public Review(String movieTitle, int movieYear, double rating, String owner, String title, ArrayList<String> body, Date date)
     {
-        this.reviewedMovie = movie;
-        this.owner = writer;
-        this.titleReview = title;
-        this.detail = text;
-        this.rating = score;
-        this.submittedDate = time;
-    }
-
-
-    public int getLikeCount()
-    {
-        return like.size();
-    }
-
-    public boolean addLike(String user)
-    {
-        like.add(user);
-        return true;
-    }
-
-    public void printReviewDetail()
-    {
-        System.out.println("\nReview Title : "+titleReview);
-        System.out.println("Movie : "+reviewedMovie);
-        System.out.println("Written by: "+owner);
-        System.out.println(submittedDate);
-
-        System.out.println("-  -  -  -  -  -  -  -  -  -  -  -  -  -  -");
-        /* loop for print all lines of detail */
-        for (String body : detail)
-        {
-            System.out.println(body);
-        }
-        System.out.println("-  -  -  -  -  -  -  -  -  -  -  -  -  -  -");
-
-        System.out.println("Rating: "+rating);
-        System.out.println(getLikeCount() + " likes");
-
-
-    }
-
-    public void setTitleReview(String titleReview) {
-        this.titleReview = titleReview;
-    }
-
-    public void setDetail(ArrayList<String> detail) {
-        this.detail = detail;
-    }
-
-    public void setRating(float rating) {
+        this.movieTitle = movieTitle;
+        this.movieYear = movieYear;
         this.rating = rating;
+        this.owner = owner;
+        this.titleReview = title;
+        this.body = body;
+        this.date = date;
+        likes = new ArrayList<>();
     }
 
-    public String getOwner() {
+    /**
+     * Add new like to ArrayList<String>
+     *
+     * @return true, unless incorrect user.
+     */
+    public void addLike(String likedUser)
+    {
+        try
+        {
+            likes.add(likedUser);
+        }
+        catch (NullPointerException e)
+        {
+
+        }
+    }
+
+    /**
+     * Remove like to UserCollection.
+     *
+     * @return true, unless incorrect user.
+     */
+    public boolean removeLike(String unlikedUser)
+    {
+        return likes.remove(unlikedUser);
+    }
+
+    /**
+     * Get date of review.
+     *
+     * @return date of review
+     */
+    public Date getDate()
+    {
+        return date;
+    }
+
+    /**
+     * Get owner of review.
+     *
+     * @return owner of review
+     */
+    public String getOwner()
+    {
         return owner;
     }
 
-    public String getReviewedMovie()
+    /**
+     * Get total liked of review.
+     *
+     * @return total liked of review
+     */
+    public int getLikedCount()
     {
-        return reviewedMovie;
+        return likes.size();
     }
 
-    public String getTitleReview() {
+    /**
+     * Get body of review.
+     *
+     * @return body of review
+     */
+    public ArrayList<String> getBody()
+    {
+        return body;
+    }
+
+    /**
+     * Get all users who like review.
+     *
+     * @return UserCollection who like review
+     */
+    public ArrayList<String> getUserLikes()
+    {
+        return likes;
+    }
+
+    /**
+     * Get rating of review.
+     *
+     * @return rating of review
+     */
+    public double getRating()
+    {
+        return rating;
+    }
+
+    /**
+     * Get movie name of review.
+     *
+     * @return movie name of review
+     */
+    public String getReviewedMovieName()
+    {
+        return movieTitle;
+    }
+
+    /**
+     * Get movie year of review.
+     *
+     * @return movie year of review
+     */
+    public int getReviewedMovieYear()
+    {
+        return movieYear;
+    }
+
+    /**
+     * Get title for review.
+     *
+     * @return title name of review
+     */
+    public String getTitleReview()
+    {
         return titleReview;
     }
 
-    public String getSubmittedDate() {
-        return submittedDate;
+    /**
+     * Set body for review.
+     */
+    public void setBody(ArrayList<String> body)
+    {
+        this.body = body;
+    }
+
+    /**
+     * Set date for review.
+     */
+    public void setDate(Date date)
+    {
+        this.date = date;
+    }
+
+    /**
+     * Set rating for review.
+     */
+    public void setRating(double rating)
+    {
+        this.rating = rating;
+    }
+
+    /**
+     * Set title for review.
+     */
+    public void setTitleReview(String title)
+    {
+        titleReview = title;
     }
 
     @Override
     public int compareTo(Review o)
     {
-        if(this.getSubmittedDate().equalsIgnoreCase(o.getSubmittedDate())) {
+        if (this.getDate().equals(o.getDate()))
+        {
             return -this.getOwner().compareTo(o.getOwner());
         }
-        else {
-            return -this.getSubmittedDate().compareTo(o.getSubmittedDate());
+        else
+        {
+            return -this.getDate().compareTo(o.getDate());
         }
     }
-
 }

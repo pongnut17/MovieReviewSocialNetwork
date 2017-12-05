@@ -1,50 +1,77 @@
-public class UserManager {
+/**
+ * UserManager.java
+ *
+ * This class represents the user security of this program.
+ *
+ * All methods are static because this is a singleton class.
+ *
+ * Created by Sally Goldin, 2 October 2017
+ */
 
+public class UserManager
+{
+    private static final String usersFileName = "allusers.txt";
+    private static UserCollection allusers = new UserCollection();
 
-    private static UserCollection allUsers = new UserCollection();
-
-
-    public User getUserbyUsername(String username)
+    private UserManager()
     {
-        return allUsers.getUserbyUsername(username);
     }
 
-    public User getUserbyEmail(String email)
-    {
-        return allUsers.getUserbyEmail(email);
-    }
-
-    public  UserCollection getAllUsers() {
-        return allUsers;
-    }
-
+    /**
+     * Set up all the users necessary for a program
+     * This could be done via reading from a file or
+     * by hardcoding the data
+     */
     public static void initialize()
     {
-
-        User A = new User("boss32734@hotmail.com","12345678","boss32734");
-        A.addFollowing("Mingd");
-        A.addFollowing("Lolipop");
-        User B = new User("Manger@hotmail.com","zeasda8","Mingd");
-        User C = new User("Aobey@hotmail.com","1asdr1","Lolipop");
-        User D = new User("Auzy@gmail.com","16878678","pongnut18");
-        D.addFollowing("Lolipop");
-        D.addFollowing("lnwmak555");
-        User E = new User("manilamanual@hotmail.com","0849211234","Ominidas");
-        User F = new User("pigletMetpig@hotmail.com","12126547","lnwmak555");
-        User G = new User("whyme555@gmail.com","AAA234","bozo007");
-        User T = new User("t","t","testUser");
-
-        allUsers.addUser(A);
-        allUsers.addUser(B);
-        allUsers.addUser(C);
-        allUsers.addUser(D);
-        allUsers.addUser(E);
-        allUsers.addUser(F);
-        allUsers.addUser(G);
-        allUsers.addUser(T);
-
-
+        UserFileReader reader = new UserFileReader();
+        if (!reader.open(usersFileName))
+        {
+            System.out.println("Error opening tile file " + usersFileName + " in UserManager:initialize()");
+            System.exit(0);
+        }
+        User nextUser;
+        while ((nextUser = reader.getUser()) != null)
+        {
+            boolean bOk = allusers.addUser(nextUser);
+            if (bOk)
+            {
+                System.out.println("Successfully added " + nextUser);
+            }
+            else
+            {
+                System.out.println("Error adding " + nextUser);
+            }
+        }
+        System.out.println("UserManager initialized");
     }
 
+    /**
+     * Check email and password that matched or not.
+     *
+     * @param email    email of login
+     * @param password password of login
+     * @return User of successful login
+     */
+    public static User login(String email, String password)
+    {
+        for (User currentUser : allusers.getUsers())
+        {
+            if (currentUser.getEmail().equals(email) && currentUser.getPassword().equals(password))
+            {
+                return currentUser;
+            }
+        }
+        return null;
+    }
 
+    /**
+     * Get all users in UserCollection.
+     *
+     * @return UserCollection of all users
+     */
+    public static UserCollection getAllUsers()
+    {
+        return allusers;
+    }
 }

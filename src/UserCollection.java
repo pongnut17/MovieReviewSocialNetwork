@@ -1,57 +1,52 @@
+/**
+ * UserCollection.java
+ *
+ * A UserCollection is a group of users
+ *
+ * Created by Like a Boss, 6 December 2017
+ */
+
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 public class UserCollection
 {
-    private TreeSet<User> users = new TreeSet<User>();
+    private ArrayList<User> users = new ArrayList<>();
 
-
-    public void printUser()
-    {
-
-    }
-
-    public TreeSet<User> getUserslist() {
-
-        return users;
-    }
-
+    /**
+     * Add new user to ArrayList<User>.
+     *
+     * @param user User to add
+     * @return true unless false if it already existed.
+     */
     public boolean addUser(User user)
     {
         for (User currentUser : users)
         {
-            if (currentUser.getUsername().equals(user.getUsername()) ||
-                    currentUser.getEmail().equals(user.getEmail()))
+            if (currentUser.getUsername().equals(user.getUsername()) || currentUser.getEmail().equals(user.getEmail()))
             {
                 return false;
             }
         }
-        users.add(user);
-        return true;
+        return users.add(user);
     }
 
+    /**
+     * Remove user from ArrayList<User>.
+     *
+     * @param user User to remove
+     * @return true unless false if it doesn't existed
+     */
     public boolean removeUser(User user)
     {
         return users.remove(user);
     }
 
-    public int getTotalUser()
-    {
-        return users.size();
-    }
-
-    public User getUserbyUsername(String username)
-    {
-        for (User currentUser : users)
-        {
-            if (currentUser.getUsername().equals(username))
-            {
-                return currentUser;
-            }
-        }
-        return null;
-    }
-
+    /**
+     * Get user by email.
+     *
+     * @param email email to find
+     * @return User object
+     */
     public User getUserbyEmail(String email)
     {
         for (User currentUser : users)
@@ -64,15 +59,41 @@ public class UserCollection
         return null;
     }
 
-    public User login(String email, String password)
+    /**
+     * Get user by username.
+     *
+     * @param username to find
+     * @return User object
+     */
+    public User getUserbyUsername(String username)
     {
         for (User currentUser : users)
         {
-            if (currentUser.getEmail().equals(email) && currentUser.getPassword().equals(password))
+            if (currentUser.getUsername().equals(username))
             {
                 return currentUser;
             }
         }
         return null;
+    }
+
+    /**
+     * Get total users count.
+     *
+     * @return Users size
+     */
+    public int getTotalUser()
+    {
+        return users.size();
+    }
+
+    /**
+     * Get ArrayList<User> of all users.
+     *
+     * @return ArrayList<User>
+     */
+    public ArrayList<User> getUsers()
+    {
+        return users;
     }
 }

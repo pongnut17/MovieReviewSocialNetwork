@@ -1,93 +1,138 @@
+/**
+ * User.java
+ *
+ * Simple class representing a user object.
+ *
+ * Created by Like a Boss, 6 December 2017
+ */
+
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.Collections;
 
 public class User implements Comparable<User>
 {
     private String Email;
     private String Password;
     private String Username;
-    private int Similar = 0;
-    private TreeSet<String> favoriteGenre = new TreeSet<String>();
-    private ArrayList<String> following = new ArrayList<>();
+    private ArrayList<String> favoriteGenres;
+    private ArrayList<String> following;
+    private int similar = 0;
 
-    public User(String Email, String Password, String Username)
+    public User(String Email, String Password, String Username, ArrayList<String> genres)
     {
         this.Email = Email;
         this.Password = Password;
         this.Username = Username;
+        Collections.sort(genres);
+        this.favoriteGenres = genres;
+        following = new ArrayList<>();
     }
 
-    public String getEmail()
+    /**
+     * Add following from user.
+     *
+     * @return true, unless incorrect user
+     */
+    public boolean addFollowing(String addfollowing)
     {
-        return Email;
+        return following.add(addfollowing);
     }
 
-    public ArrayList<String> getFollowing()
+    /**
+     * Remove following from user.
+     *
+     * @return true, unless incorrect user
+     */
+    public boolean removeFollowing(String unfollowing)
     {
-        return following;
+        return following.remove(unfollowing);
     }
 
-    public void addFollowing(String targetUsername)
+    /**
+     * Add similar count for suggest feature.
+     */
+    public void addSimilar()
     {
-        following.add(targetUsername);
+        similar++;
     }
 
-    public void removeFollowing(String targetUsername)
+    /**
+     * Reset similar count for suggest feature.
+     */
+    public void resetSimilar()
     {
-        following.remove(targetUsername);
+        similar = 0;
     }
 
-
-    public String getPassword()
+    /**
+     * Get similar count for suggest feature.
+     *
+     * @return similar count
+     */
+    public int getSimilar()
     {
-        return Password;
+        return similar;
     }
-
+    /**
+     * Get username of user.
+     *
+     * @return username of user
+     */
     public String getUsername()
     {
         return Username;
     }
 
-    public TreeSet<String> getFavoriteGenre()
+    /**
+     * Get email of user.
+     *
+     * @return email of user
+     */
+    public String getEmail()
     {
-        return favoriteGenre;
+        return Email;
     }
 
-    public boolean addFavoriteGenre(String genre)
+    /**
+     * Get all favorite genres of user.
+     *
+     * @return TreeSet of all favorite genres
+     */
+    public ArrayList<String> getFavoriteGenres()
     {
-        return favoriteGenre.add(genre);
+        return favoriteGenres;
     }
 
-
-    public void addSimilar()
+    /**
+     * Get all following of user.
+     *
+     * @return ArrayList<String> of following
+     */
+    public ArrayList<String> getFollowing()
     {
-        this.Similar += 1;
+        return following;
     }
-    public void resetSimilar()
-    {
-        this.Similar = 0;
-    }
 
-    public int getSimilar()
+    /**
+     * Get email of user.
+     *
+     * @return email of user
+     */
+    public String getPassword()
     {
-        return this.Similar;
+        return Password;
     }
 
     @Override
     public int compareTo(User o)
     {
-        if (this.getSimilar() == o.getSimilar())
+        if (getSimilar() == o.getSimilar())
         {
-            return this.getUsername().compareTo(o.getUsername());
+            return getUsername().compareTo(o.getUsername());
         }
         else
         {
-            return Integer.compare(o.getSimilar(), this.getSimilar());
+            return Integer.compare(o.getSimilar(), getSimilar());
         }
-    }
-
-    public boolean removeFavoriteGenre(String genre)
-    {
-        return favoriteGenre.remove(genre);
     }
 }
