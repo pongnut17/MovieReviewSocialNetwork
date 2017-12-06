@@ -95,7 +95,7 @@ public class MovieReviewSocialNetwork
                 movieUpdate.write(" ");
                 movieUpdate.write(theReview.getReviewedMovieName().replaceAll("\\s+", "_"));
                 movieUpdate.write(" ");
-                movieUpdate.write(theReview.getReviewedMovieYear());
+                movieUpdate.write(Integer.toString(theReview.getReviewedMovieYear()));
                 movieUpdate.write(" ");
                 movieUpdate.write(Double.toString(theReview.getRating()));
                 movieUpdate.write(" ");
@@ -367,15 +367,20 @@ public class MovieReviewSocialNetwork
         {
             Date ReviewDate = theReview.getDate();
 
-            if (ReviewDate.compareTo(date1) <= 0 && ReviewDate.compareTo(date2) > 0)
+            if (ReviewDate.compareTo(date2) <= 0 && ReviewDate.compareTo(date1) > 0)
             {
                 printReviewDetail(theReview);
-            }
-            System.out.println("-----------------------------------------------------------------------------");
-            String YesNo = IOUtils.getString(">> Like?(Y/N): ");
-            if (YesNo.equalsIgnoreCase("Y"))
-            {
-                reviewsDb.likeReview(loginUser.getUsername(), theReview);
+
+                System.out.println("-----------------------------------------------------------------------------");
+                String YesNo = IOUtils.getString(">> Like?(Y/N) or E to exit: ");
+                if (YesNo.equalsIgnoreCase("Y"))
+                {
+                    reviewsDb.likeReview(loginUser.getUsername(), theReview);
+                }
+                else if (YesNo.equalsIgnoreCase("E"))
+                {
+                    break;
+                }
             }
         }
     }
@@ -394,10 +399,14 @@ public class MovieReviewSocialNetwork
                 {
                     printReviewDetail(theReview);
                     System.out.println("-----------------------------------------------------------------------------");
-                    String YesNo = IOUtils.getString(">> Like?(Y/N): ");
+                    String YesNo = IOUtils.getString(">> Like?(Y/N) or E to exit: ");
                     if (YesNo.equalsIgnoreCase("Y"))
                     {
                         reviewsDb.likeReview(loginUser.getUsername(), theReview);
+                    }
+                    else if (YesNo.equalsIgnoreCase("E"))
+                    {
+                        break;
                     }
                 }
             }
@@ -420,10 +429,14 @@ public class MovieReviewSocialNetwork
             {
                 printReviewDetail(theReview);
                 System.out.println("-----------------------------------------------------------------------------");
-                String YesNo = IOUtils.getString(">> Like?(Y/N): ");
+                String YesNo = IOUtils.getString(">> Like?(Y/N) or E to exit: ");
                 if (YesNo.equalsIgnoreCase("Y"))
                 {
                     reviewsDb.likeReview(loginUser.getUsername(), theReview);
+                }
+                else if (YesNo.equalsIgnoreCase("E"))
+                {
+                    break;
                 }
             }
         }
@@ -441,10 +454,14 @@ public class MovieReviewSocialNetwork
             {
                 printReviewDetail(theReview);
                 System.out.println("-----------------------------------------------------------------------------");
-                String YesNo = IOUtils.getString(">> Like?(Y/N): ");
+                String YesNo = IOUtils.getString(">> Like?(Y/N) or E to exit: ");
                 if (YesNo.equalsIgnoreCase("Y"))
                 {
                     reviewsDb.likeReview(loginUser.getUsername(), theReview);
+                }
+                else if (YesNo.equalsIgnoreCase("E"))
+                {
+                    break;
                 }
             }
         }
