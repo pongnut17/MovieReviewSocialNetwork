@@ -13,7 +13,7 @@ public class Review implements Comparable<Review>
 {
     private ArrayList<String> body;
     private Date date;
-    private ArrayList<String> likes;
+    private ArrayList<String> likes = new ArrayList<>();
     private String movieTitle;
     private int movieYear;
     private String owner;
@@ -29,7 +29,6 @@ public class Review implements Comparable<Review>
         this.titleReview = title;
         this.body = body;
         this.date = date;
-        likes = new ArrayList<>();
     }
 
     /**
@@ -39,14 +38,7 @@ public class Review implements Comparable<Review>
      */
     public void addLike(String likedUser)
     {
-        try
-        {
-            likes.add(likedUser);
-        }
-        catch (NullPointerException e)
-        {
-
-        }
+        likes.add(likedUser);
     }
 
     /**

@@ -84,7 +84,7 @@ public class MovieReviewSocialNetwork
     {
         try
         {
-            FileWriter movieUpdate = new FileWriter("review.txt");
+            FileWriter movieUpdate = new FileWriter("allreviews.txt");
             for (Review theReview : reviewsDb.getAllReviews())
             {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -94,6 +94,8 @@ public class MovieReviewSocialNetwork
                 movieUpdate.write(theReview.getOwner());
                 movieUpdate.write(" ");
                 movieUpdate.write(theReview.getReviewedMovieName().replaceAll("\\s+", "_"));
+                movieUpdate.write(" ");
+                movieUpdate.write(theReview.getReviewedMovieYear());
                 movieUpdate.write(" ");
                 movieUpdate.write(Double.toString(theReview.getRating()));
                 movieUpdate.write(" ");
@@ -113,15 +115,16 @@ public class MovieReviewSocialNetwork
                     }
                 }
                 movieUpdate.write(" ");
+                movieUpdate.write(theReview.getTitleReview().replaceAll("\\s+", "_"));
+                movieUpdate.write(" ");
                 for (String body : theReview.getBody())
                 {
                     movieUpdate.write(body.replaceAll("\\s+", "_"));
                     if (!body.equals(theReview.getBody().get(theReview.getBody().size() - 1)))
                     {
-                        movieUpdate.write(",");
+                        movieUpdate.write(" ");
                     }
                 }
-                movieUpdate.write(" ");
                 movieUpdate.write("\n");
             }
             movieUpdate.close();
@@ -138,7 +141,7 @@ public class MovieReviewSocialNetwork
     {
         try
         {
-            FileWriter userUpdate = new FileWriter("user.txt");
+            FileWriter userUpdate = new FileWriter("allusers.txt");
             for (User theuser : UserManager.getAllUsers().getUsers())
             {
                 userUpdate.write(theuser.getEmail());
@@ -535,10 +538,14 @@ public class MovieReviewSocialNetwork
             {
                 printReviewDetail(currentReview);
                 System.out.println("-----------------------------------------------------------------------------");
-                String prompt = IOUtils.getString(">> Like?(Y/N): ");
+                String prompt = IOUtils.getString(">> Like?(Y/N) or E to exit: ");
                 if (prompt.equalsIgnoreCase("Y"))
                 {
                     reviewsDb.likeReview(loginUser.getUsername(), currentReview);
+                }
+                if (prompt.equalsIgnoreCase("E"))
+                {
+                    break;
                 }
             }
         }
@@ -568,19 +575,13 @@ public class MovieReviewSocialNetwork
             ArrayList<Review> Y = reviewsDb.getAllReviewsByUser(currentUser.getUsername());
             for (Review currentR : Y)
             {
-                try
+                for (String theGenre : moviesDb.getMovie(currentR.getReviewedMovieName(), currentR.getReviewedMovieYear()).getGenres())
                 {
-                    for (String theGenre : moviesDb.getMovie(currentR.getReviewedMovieName(), currentR.getReviewedMovieYear()).getGenres())
+                    if (loginUser.getFavoriteGenres().contains(theGenre))
                     {
-                        if (loginUser.getFavoriteGenres().contains(theGenre))
-                        {
-                            currentUser.addSimilar();
-                            break;
-                        }
+                        currentUser.addSimilar();
+                        break;
                     }
-                }
-                catch (NullPointerException e)
-                {
                 }
             }
         }
@@ -595,7 +596,7 @@ public class MovieReviewSocialNetwork
             {
                 if (!loginUser.getUsername().equals(currentUser.getUsername()))
                 {
-                    System.out.println(" Username: " + currentUser.getUsername());
+                    System.out.println("Score: " + currentUser.getSimilar() + " Username: " + currentUser.getUsername());
                 }
                 currentUser.resetSimilar();
             }

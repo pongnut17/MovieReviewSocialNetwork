@@ -5,7 +5,7 @@
  *
  * All methods are static because this is a singleton class.
  *
- * Created by Sally Goldin, 2 October 2017
+ * Created by Like a Boss, 6 December 2017
  */
 
 public class UserManager

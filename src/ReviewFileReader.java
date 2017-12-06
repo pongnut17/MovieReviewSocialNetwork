@@ -116,22 +116,6 @@ public class ReviewFileReader extends TextFileReader
                 movie = convertUnderscoreToSpace(fields[2]);
                 year = convertToInt(fields[3]);
                 rating = convertToDouble(fields[4]);
-                if (!fields[5].equalsIgnoreCase("-"))
-                {
-                    String substring = fields[5];
-                    String likes[] = substring.split(",");
-                    for (String currentLike : likes)
-                    {
-                        try
-                        {
-                            newReview.addLike(currentLike);
-                        }
-                        catch (NullPointerException e)
-                        {
-
-                        }
-                    }
-                }
                 title = convertUnderscoreToSpace(fields[6]);
                 ArrayList<String> body = new ArrayList<>();
                 for (int i = 7; i < fields.length; i++)
@@ -139,6 +123,15 @@ public class ReviewFileReader extends TextFileReader
                     body.add(convertUnderscoreToSpace(fields[i]));
                 }
                 newReview = new Review(movie, year, rating, owner, title, body, reviewedDate);
+                if (!fields[5].equalsIgnoreCase("-"))
+                {
+                    String substring = fields[5];
+                    String likes[] = substring.split(",");
+                    for (String currentLike : likes)
+                    {
+                        newReview.addLike(currentLike);
+                    }
+                }
             }
         }
         return newReview;  /* will be null if we've reached EOF */
